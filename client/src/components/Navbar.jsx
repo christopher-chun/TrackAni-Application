@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { MenuIcon, SearchIcon, XIcon } from "lucide-react";
 import { useUser, useClerk, UserButton } from "@clerk/clerk-react";
 
-//1:11:08
+//1:24:46
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);

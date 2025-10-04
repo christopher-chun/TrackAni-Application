@@ -6,8 +6,6 @@ import AnimeDetails from './pages/AnimeDetails';
 import Home from './pages/Home';
 import Manga from './pages/Manga';
 import MangaDetails from './pages/MangaDetails';
-import TrendingAnime from './pages/TrendingAnime';
-import TrendingManga from './pages/TrendingManga';
 import Favorite from './pages/Favorite';
 import AnimeList from './pages/AnimeList';
 import MangaList from './pages/MangaList';
@@ -27,12 +25,10 @@ const App = () => {
         
         {/* Anime Routes */}
         <Route path='/anime' element={<Anime/>} />
-        <Route path='/anime/trending' element={<TrendingAnime/>} />
         <Route path='/anime/:id' element={<AnimeDetails/>} />
         
         {/* Manga Routes */}
         <Route path='/manga' element={<Manga/>} />
-        <Route path='/manga/trending' element={<TrendingManga/>} />
         <Route path='/manga/:id' element={<MangaDetails/>} />
         
         {/* User Lists */}
