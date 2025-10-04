@@ -1,7 +1,10 @@
 import React from "react";
 import { useRandomAnime } from "../hooks/useKitsuAPI";
+import { useNavigate } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 
 const HomeBackground = () => {
+  const navigate = useNavigate()
   const { anime, loading, error } = useRandomAnime();
 
   if (loading) {
@@ -49,6 +52,10 @@ const HomeBackground = () => {
       <p className="max-w-2xl text-gray-300">
         {synopsis.length > 500 ? synopsis.slice(0, 500) + "..." : synopsis}
       </p>
+      <button onClick={() => navigate('/anime')} className="flex items-center gap-1 px-6 py-3 text-sm bg-primary-dull hover:bg-primary transition rounded-full font-medium cursor-pointer">
+        Explore Anime
+        <ArrowRight className="w-5 h-5"/>
+      </button>
     </div>
   );
 };

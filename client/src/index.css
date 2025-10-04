@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 @import "tailwindcss";
 @theme {
-    --color-primary: #59e7ab;
-    --color-primary-dull: #6db4f2;
+    --color-primary: #59e7ab; /* teal color */
+    --color-primary-dull: #6db4f2; /* light blue color */
 }
 
 *{
