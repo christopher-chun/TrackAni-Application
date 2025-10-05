@@ -9,7 +9,7 @@ const HomeBackground = () => {
 
   if (loading) {
     return (
-      <div className="flex flex-col justify-center items-center gap-4 px-6 md:px-16 lg:px-36 bg-gradient-to-br from-gray-900 to-gray-800 h-screen">
+      <div className="flex flex-col justify-center items-center gap-4 px-6 md:px-16 lg:px-36 bg-gray-900 h-screen">
         <div className="text-white text-xl">Loading...</div>
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>
       </div>
@@ -18,7 +18,7 @@ const HomeBackground = () => {
 
   if (error || !anime) {
     return (
-      <div className="flex flex-col justify-center items-center gap-4 px-6 md:px-16 lg:px-36 bg-gradient-to-br from-gray-900 to-gray-800 h-screen">
+      <div className="flex flex-col justify-center items-center gap-4 px-6 md:px-16 lg:px-36 bg-gray-900 h-screen">
         <div className="text-white text-xl">Welcome to TrackAni!</div>
         <div className="text-gray-400">
           Discover and track your favorite anime and manga!

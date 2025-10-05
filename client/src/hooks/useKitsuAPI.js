@@ -1,19 +1,16 @@
 import { useState, useEffect, useRef } from "react";
 
 //Generic Kitsu API hook for fetching data from any endpoint
-const useKitsuAPI = (endpoint, dependencies = []) => {
+const useKitsuAPI = (endpoint = []) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const hasAttemptedRef = useRef(false);
 
   useEffect(() => {
-    if (!endpoint || hasAttemptedRef.current) {
-      if (!endpoint) setLoading(false);
+    if (!endpoint) {
+      setLoading(false);
       return;
     }
-
-    hasAttemptedRef.current = true;
 
     const fetchData = async () => {
       try {
@@ -44,7 +41,7 @@ const useKitsuAPI = (endpoint, dependencies = []) => {
     };
 
     fetchData();
-  }, [endpoint, ...dependencies]);
+  }, [endpoint]);
 
   return { data, loading, error, refetch: () => window.location.reload() };
 };

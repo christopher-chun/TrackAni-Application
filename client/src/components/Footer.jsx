@@ -3,7 +3,7 @@ import React from "react";
 // Footer component credit to prebuiltui.com
 const Footer = () => {
   return (
-    <footer className="flex flex-col items-center justify-around w-full py-16 text-sm">
+    <footer className="flex flex-col items-center justify-around w-full py-16 text-sm bg-gray-900">
       <img alt="Logo" src="/applogo.svg" className="w-36 h-10" />
       <p className="mt-4 text-center">
         Copyright {new Date().getFullYear()} © TrackAni. All rights reservered.
