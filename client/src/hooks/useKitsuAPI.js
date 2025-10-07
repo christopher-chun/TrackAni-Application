@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 //Generic Kitsu API hook for fetching data from any endpoint
 const useKitsuAPI = (endpoint = []) => {
@@ -65,6 +65,24 @@ const useAnime = (id = null, filters = {}) => {
   return useKitsuAPI(endpoint, [id, JSON.stringify(filters)]);
 };
 
+const useManga = (id = null, filters = {}) => {
+  let endpoint = "manga";
+  if (id) {
+    endpoint = `manga/${id}`;
+  } else {
+    const params = new URLSearchParams();
+    if (filters.limit) params.append("page[limit]", filters.limit);
+    if (filters.offset) params.append("page[offset]", filters.offset);
+    if (filters.search) params.append("filter[text]", filters.search);
+    if (filters.sort) params.append("sort", filters.sort);
+    if (filters.status) params.append("filter[status]", filters.status);
+    if (params.toString()) {
+      endpoint += `?${params.toString()}`;
+    }
+  }
+  return useKitsuAPI(endpoint, [id, JSON.stringify(filters)]);
+};
+
 const useRandomAnime = () => {
   // Use a fixed random offset to prevent infinite re-randomization
   const [randomOffset] = useState(() => Math.floor(Math.random() * 2000));
@@ -81,4 +99,4 @@ const useRandomAnime = () => {
   return { anime, loading, error };
 };
 
-export { useKitsuAPI, useAnime, useRandomAnime };
+export { useKitsuAPI, useAnime, useRandomAnime, useManga };

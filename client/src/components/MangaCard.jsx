@@ -1,15 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const AnimeCard = ({ anime }) => {
+const MangaCard = ({ manga }) => {
   const title =
-    anime.attributes?.canonicalTitle || anime.attributes.titles?.en || "N/A";
+    manga.attributes?.canonicalTitle || manga.attributes.titles?.en || "N/A";
   const posterImage =
-    anime.attributes?.posterImage?.medium ||
-    anime.attributes?.posterImage?.small;
+    manga.attributes?.posterImage?.medium ||
+    manga.attributes?.posterImage?.small;
   return (
     <Link
-      to={`/anime/${anime.id}`}
+      to={`/manga/${manga.id}`}
       className="flex flex-col justify-between p-3 bg-gray-800 rounded-2xl hover:-translate-y-1 transition duration-300 w-66"
     >
       <img
@@ -22,4 +22,4 @@ const AnimeCard = ({ anime }) => {
   );
 };
 
-export default AnimeCard;
+export default MangaCard;

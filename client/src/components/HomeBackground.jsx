@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 
 const HomeBackground = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { anime, loading, error } = useRandomAnime();
 
   if (loading) {
@@ -27,7 +27,9 @@ const HomeBackground = () => {
     );
   }
 
-  const coverImage = anime.attributes?.coverImage?.large;
+  const coverImage =
+    anime.attributes?.coverImage?.large ||
+    anime.attributes?.coverImage?.original;
   const title =
     anime.attributes?.canonicalTitle || anime.attributes?.titles?.en || "N/A";
   const startDate = anime.attributes?.startDate || "N/A";
@@ -45,16 +47,19 @@ const HomeBackground = () => {
         {title}
       </h1>
       <div className="flex items-center gap-4 text-gray-300">
-        <span>{startDate}</span>
+        <span>{new Date(startDate).toLocaleDateString()}</span>
         <span> | </span>
         <span>{episodeCount} Episodes</span>
       </div>
       <p className="max-w-2xl text-gray-300">
         {synopsis.length > 500 ? synopsis.slice(0, 500) + "..." : synopsis}
       </p>
-      <button onClick={() => navigate('/anime')} className="flex items-center gap-1 px-6 py-3 text-sm bg-primary-dull hover:bg-primary transition rounded-full font-medium cursor-pointer">
+      <button
+        onClick={() => navigate("/anime")}
+        className="flex items-center gap-1 px-6 py-3 text-sm bg-primary-dull hover:bg-primary transition rounded-full font-medium cursor-pointer"
+      >
         Explore Anime
-        <ArrowRight className="w-5 h-5"/>
+        <ArrowRight className="w-5 h-5" />
       </button>
     </div>
   );

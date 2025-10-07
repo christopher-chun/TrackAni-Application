@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState }from "react";
 import { useAnime } from "../hooks/useKitsuAPI";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import AnimeCard from "../components/AnimeCard";
 
 const Anime = () => {
-  const [currentPage, setCurrentPage] = React.useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   const animePerPage = 20;
   const { data, loading, error } = useAnime(null, {
     limit: animePerPage,
