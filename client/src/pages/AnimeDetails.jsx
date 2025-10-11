@@ -50,14 +50,14 @@ const AnimeDetails = () => {
   return (
     <div className="min-h-screen bg-gray-900 text-white">
       {/* Cover Image Banner */}
-      {coverImage && (
-        <div
-          className="h-96 bg-cover bg-center relative"
-          style={{
-            backgroundImage: `linear-gradient(to bottom, rgba(17, 24, 39, 0.5), rgba(17, 24, 39, 0.95)), url(${coverImage})`,
-          }}
-        />
-      )}
+      <div
+        className="h-96 bg-cover bg-center relative"
+        style={{
+          backgroundImage: coverImage
+            ? `linear-gradient(to bottom, rgba(17, 24, 39, 0.5), rgba(17, 24, 39, 0.95)), url(${coverImage})`
+            : 'linear-gradient(to bottom, rgba(17, 24, 39, 0.8), rgba(17, 24, 39, 1))'
+        }}
+      />
 
       {/* Main Content */}
       <div className="px-6 md:px-16 lg:px-36 -mt-32 relative z-10 pb-12">
