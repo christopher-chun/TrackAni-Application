@@ -34,7 +34,6 @@ const AnimeDetails = () => {
   const anime = data?.data || data;
   const attrs = anime.attributes;
 
-  // Issue with coverImage sometimes being null
   const coverImage = attrs?.coverImage?.large || attrs?.coverImage?.original;
   const posterImage = attrs?.posterImage?.large || attrs?.posterImage?.medium;
   const title = attrs?.canonicalTitle || attrs?.titles?.en || "N/A";
