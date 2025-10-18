@@ -4,7 +4,7 @@ import { MenuIcon, SearchIcon, XIcon } from "lucide-react";
 import { useUser, useClerk, UserButton } from "@clerk/clerk-react";
 
 // backend 4:16:20, need search modal and page search, favorites page, anime/manga lists with status, ratings, keep track of how many episodes watched
-// user profile page for stats, need functionality to add anime and manga to lists and favorites
+// user profile page for stats, need functionality to add anime and manga to lists and favorites, checking github 
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
