@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { MenuIcon, SearchIcon, XIcon } from "lucide-react";
 import { useUser, useClerk, UserButton } from "@clerk/clerk-react";
+import SearchButton from "./SearchButton";
 
 // backend 4:16:20, need search modal and page search, favorites page, anime/manga lists with status, ratings, keep track of how many episodes watched
 // user profile page for stats, need functionality to add anime and manga to lists and favorites, checking github 
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const {user} = useUser();
   const {openSignIn} = useClerk();
 
@@ -104,7 +106,10 @@ const Navbar = () => {
 
       {/* Right Side - Search & Login */}
       <div className="flex items-center gap-4">
-        <SearchIcon className="hidden md:block w-6 h-6 cursor-pointer hover:text-primary transition-colors" />
+        <SearchIcon 
+          className="hidden md:block w-6 h-6 cursor-pointer hover:text-primary transition-colors" 
+          onClick={() => setSearchOpen(true)}
+        />
         {
           !user ? (
             <button onClick={openSignIn} className="px-4 py-1 sm:px-7 sm:py-2 bg-primary-dull hover:bg-primary transition 
@@ -115,6 +120,7 @@ const Navbar = () => {
             <UserButton />
           )
         }
+        <SearchButton isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
         <MenuIcon
           className="md:hidden w-8 h-8 cursor-pointer"
           onClick={openMobile}
