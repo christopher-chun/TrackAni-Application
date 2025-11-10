@@ -5,6 +5,7 @@ import MangaCard from "../components/MangaCard";
 
 const Manga = () => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [pageInput, setPageInput] = useState("");
   const mangaPerPage = 20;
   const { data, loading, error } = useManga(null, {
     limit: mangaPerPage,
@@ -14,6 +15,20 @@ const Manga = () => {
   const MangaList = data?.data || [];
   const totalManga = data?.meta?.count || 0;
   const totalPages = Math.ceil(totalManga / mangaPerPage);
+
+  const handleSearch = () => {
+    const pageNumber = parseInt(pageInput);
+    if (pageNumber >= 1 && pageNumber <= totalPages) {
+      setCurrentPage(pageNumber);
+      setPageInput("");
+    } 
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
 
   if (loading) {
     return (
@@ -93,6 +108,31 @@ const Manga = () => {
       <p className="text-center text-white mt-4">
         Page {currentPage} of {totalPages}
       </p>
+
+      <div className="flex items-center justify-center gap-2 mt-3">
+        <span className="text-white text-sm">Go to:</span>
+        <input
+          type="number"
+          min="1"
+          max={totalPages}
+          value={pageInput}
+          onChange={(e) => setPageInput(e.target.value)}
+          onKeyDown={handleKeyDown}
+          placeholder={currentPage.toString()}
+          className="w-16 px-2 py-2 bg-gray-800 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-dull text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+        />
+        <button
+          onClick={handleSearch}
+          disabled={
+            !pageInput ||
+            parseInt(pageInput) < 1 ||
+            parseInt(pageInput) > totalPages
+          }
+          className="px-3 py-2 bg-primary-dull hover:bg-primary disabled:opacity-50 disabled:cursor-not-allowed transition rounded-lg text-sm font-medium"
+        >
+          Go
+        </button>
+      </div>
     </div>
   );
 };

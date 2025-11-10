@@ -80,7 +80,7 @@ const MangaDetails = () => {
                 <div className="flex items-center gap-2 bg-yellow-600 px-4 py-2 rounded-full">
                   <Star className="w-4 h-4 fill-current" />
                   <span className="font-semibold">
-                    {parseFloat(rating).toFixed(1)}
+                    {parseFloat(rating / 10).toFixed(1)}
                   </span>
                 </div>
               )}

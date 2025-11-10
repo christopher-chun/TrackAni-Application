@@ -91,7 +91,7 @@ const SearchButton = ({ isOpen, onClose }) => {
                 onClick={() => handleSearchTypeChange("anime")}
                 className={`px-4 py-1 rounded-full text-sm font-medium transition-colors ${
                   searchType === "anime"
-                    ? "bg-primary text-white"
+                    ? "bg-primary-dull text-white"
                     : "bg-gray-800/50 text-gray-400 hover:text-white hover:bg-gray-700/50"
                 }`}
               >
@@ -101,7 +101,7 @@ const SearchButton = ({ isOpen, onClose }) => {
                 onClick={() => handleSearchTypeChange("manga")}
                 className={`px-4 py-1 rounded-full text-sm font-medium transition-colors ${
                   searchType === "manga"
-                    ? "bg-primary text-white"
+                    ? "bg-primary-dull text-white"
                     : "bg-gray-800/50 text-gray-400 hover:text-white hover:bg-gray-700/50"
                 }`}
               >
@@ -126,13 +126,13 @@ const SearchButton = ({ isOpen, onClose }) => {
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder={`Search ${searchType}...`}
-              className="flex-1 bg-gray-800/50 text-white px-4 py-3 rounded-full focus:outline-none focus:ring-2 focus:ring-primary border border-gray-300/20 placeholder-gray-500"
+              className="flex-1 bg-gray-800/50 text-white px-4 py-3 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-dull border border-gray-300/20 placeholder-gray-500"
               autoFocus
             />
             <button
               onClick={handleSearch}
               disabled={query.trim().length < 2}
-              className="px-6 py-3 bg-primary hover:bg-primary-dull disabled:opacity-50 disabled:cursor-not-allowed transition-colors rounded-full font-medium"
+              className="px-6 py-3 bg-primary-dull hover:bg-primary disabled:opacity-50 disabled:cursor-not-allowed transition-colors rounded-full font-medium"
             >
               Search
             </button>
@@ -176,7 +176,7 @@ const SearchButton = ({ isOpen, onClose }) => {
                       {item.attributes?.averageRating && (
                         <span>
                           ⭐{" "}
-                          {parseFloat(item.attributes.averageRating).toFixed(1)}
+                          {parseFloat(item.attributes.averageRating / 10).toFixed(1)}
                         </span>
                       )}
                       {item.attributes?.status && (
@@ -193,7 +193,7 @@ const SearchButton = ({ isOpen, onClose }) => {
 
           {!searchQuery && (
             <div className="text-center text-gray-400 py-8">
-              Type a {searchType} name and click search
+              {searchType === 'anime' ? `Type an ${searchType} name and click search` : `Type a ${searchType} name and click search`}
             </div>
           )}
         </div>
