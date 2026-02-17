@@ -1,13 +1,13 @@
-import express from 'express';
-import requireAuth from '../middleware/auth.js';
+import express from "express";
+import requireAuth from "../middleware/auth.js";
 import {
   getList,
   getListItem,
   addToList,
   updateListItem,
   removeFromList,
-  getListStats
-} from '../controllers/listController.js';
+  getListStats,
+} from "../controllers/listController.js";
 
 const router = express.Router();
 
@@ -15,16 +15,16 @@ const router = express.Router();
 router.use(requireAuth);
 
 // GET /api/list - Get user's list (with optional filters)
-router.get('/', getList);
+router.get("/", getList);
 // GET /api/list/stats/:itemType - Get list statistics
-router.get('/stats/:itemType', getListStats);
+router.get("/stats/:itemType", getListStats);
 // GET /api/list/:itemId/:itemType - Get single list item
-router.get('/:itemId/:itemType', getListItem);
+router.get("/:itemId/:itemType", getListItem);
 // POST /api/list - Add to list
-router.post('/', addToList);
+router.post("/", addToList);
 // PATCH /api/list/:itemId/:itemType - Update list item
-router.patch('/:itemId/:itemType', updateListItem);
+router.patch("/:itemId/:itemType", updateListItem);
 // DELETE /api/list/:itemId/:itemType - Remove from list
-router.delete('/:itemId/:itemType', removeFromList);
+router.delete("/:itemId/:itemType", removeFromList);
 
 export default router;

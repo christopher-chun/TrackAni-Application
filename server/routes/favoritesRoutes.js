@@ -1,11 +1,11 @@
-import express from 'express';
-import requireAuth from '../middleware/auth.js';
+import express from "express";
+import requireAuth from "../middleware/auth.js";
 import {
-    getFavorites,
-    addFavorite,
-    removeFavorite,
-    checkFavorite,
-} from '../controllers/favoritesController.js'
+  getFavorites,
+  addFavorite,
+  removeFavorite,
+  checkFavorite,
+} from "../controllers/favoritesController.js";
 
 const router = express.Router();
 
@@ -13,12 +13,12 @@ const router = express.Router();
 router.use(requireAuth);
 
 // GET /api/favorites - Get user's favorite items
-router.get('/', getFavorites);
+router.get("/", getFavorites);
 // POST /api/favorites - Add a new favorite item
-router.post('/', addFavorite);
+router.post("/", addFavorite);
 // DELETE /api/favorites/:itemId/:itemType - Remove a favorite item
-router.delete('/:itemId/:itemType', removeFavorite);
+router.delete("/:itemId/:itemType", removeFavorite);
 // GET /api/favorites/check/:itemId/:itemType - Check if an item is in favorites
-router.get('/check/:itemId/:itemType', checkFavorite);
+router.get("/check/:itemId/:itemType", checkFavorite);
 
 export default router;

@@ -12,7 +12,7 @@ const favoriteSchema = new mongoose.Schema({
   },
   itemType: {
     type: String,
-    enum: ['anime', 'manga'],
+    enum: ["anime", "manga"],
     required: true,
   },
   addedAt: {
@@ -24,6 +24,6 @@ const favoriteSchema = new mongoose.Schema({
 // Preventing duplicate favorites
 favoriteSchema.index({ userId: 1, itemId: 1, itemType: 1 }, { unique: true });
 
-const Favorite = mongoose.model('Favorite', favoriteSchema);
+const Favorite = mongoose.model("Favorite", favoriteSchema);
 
 export default Favorite;
