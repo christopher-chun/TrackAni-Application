@@ -1,13 +1,81 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAnime } from "../hooks/useKitsuAPI";
-import { ArrowLeft, Star, Calendar, Tv, Clock } from "lucide-react";
+import { useAuth } from "@clerk/clerk-react";
+import { ArrowLeft, Star, Calendar, Tv, Clock, Heart, BookmarkPlus } from "lucide-react";
+import { addFavorite, removeFavorite, checkFavorite, addToList, getListItem } from "../utils/api";
+import toast from "react-hot-toast";
 
 const AnimeDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { getToken, isSignedIn } = useAuth();
   const { data, loading, error } = useAnime(id);
 
+  const [isFavorited, setIsFavorited] = useState(false);
+  const [listStatus, setListStatus] = useState(null);
+  const [actionLoading, setActionLoading] = useState(false);
+  const [showListDropdown, setShowListDropdown] = useState(false);
+
+  // Checking if anime is already favorited or in list
+  useEffect(() => {
+    if (!isSignedIn || !id) return;
+    const checkStatus = async () => {
+      try {
+        const [favoriteStatus, listItem] = await Promise.all([
+          checkFavorite(getToken, id, 'anime'),
+          getListItem(getToken, id, 'anime').catch(() => null)
+        ]);
+        setIsFavorited(favoriteStatus.isFavorite);
+        setListStatus(listItem?.status || null);
+      } catch (error) {
+        console.error('Error checking status:', error);
+      }
+    };
+    checkStatus();
+  }, [id, isSignedIn]);
+
+  const handleFavorite = async () => {
+    if (!isSignedIn) {
+      toast.error('Please login to add favorites');
+      return;
+    }
+    setActionLoading(true);
+    try {
+      if (isFavorited) {
+        await removeFavorite(getToken, id, 'anime');
+        setIsFavorited(false);
+        toast.success('Removed from favorites');
+      } else {
+        await addFavorite(getToken, id, 'anime');
+        setIsFavorited(true);
+        toast.success('Added to favorites!');
+      }
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+  const handleAddToList = async (status) => {
+    if (!isSignedIn) {
+      toast.error('Please login to add to list');
+      return;
+    }
+    setActionLoading(true);
+    setShowListDropdown(false);
+    try {
+      await addToList(getToken, id, 'anime', status);
+      setListStatus(status);
+      toast.success(`Added to ${status.replace('_', ' ')} list!`);
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      setActionLoading(false);
+    }
+  };
+  
   if (loading) {
     return (
       <div className="flex flex-col justify-center items-center gap-4 px-6 md:px-16 lg:px-36 bg-gray-900 h-screen">
@@ -149,13 +217,51 @@ const AnimeDetails = () => {
             </div>
 
             {/* Action Buttons */}
-            <div className="flex flex-wrap gap-4 mb-8">
-              <button className="flex items-center gap-2 px-6 py-3 bg-primary-dull hover:bg-primary transition rounded-full font-medium cursor-pointer">
-                Add to My List {/* need to implement functionality */}
+            <div className="flex flex-wrap gap-4 mb-8 relative">
+              {/* Favorites Button */}
+              <button
+                onClick={handleFavorite}
+                disabled={actionLoading}
+                className={`flex items-center gap-2 px-6 py-3 transition-colors rounded-full font-medium cursor-pointer disabled:opacity-50 ${
+                  isFavorited
+                    ? 'bg-red-600 hover:bg-red-700'
+                    : 'bg-gray-800 hover:bg-gray-700 border border-gray-700'
+                }`}
+              >
+                <Heart className={`w-5 h-5 ${isFavorited ? 'fill-current' : ''}`} />
+                {isFavorited ? 'Favorited' : 'Add to Favorites'}
               </button>
-              <button className="flex items-center gap-2 px-6 py-3 bg-gray-800 hover:bg-gray-700 transition rounded-full font-medium cursor-pointer border border-gray-700">
-                Add to Favorites {/* need to implement functionality */}
-              </button>
+              <div className="relative">
+                {/* Add to List Button */}
+                <button
+                  onClick={() => setShowListDropdown(!showListDropdown)}
+                  disabled={actionLoading}
+                  className={`flex items-center gap-2 px-6 py-3 transition-colors rounded-full font-medium cursor-pointer disabled:opacity-50 ${
+                    listStatus
+                      ? 'bg-primary hover:bg-primary-dull'
+                      : 'bg-gray-800 hover:bg-gray-700 border border-gray-700'
+                  }`}
+                >
+                  <BookmarkPlus className="w-5 h-5" />
+                  {listStatus ? listStatus.replace('_', ' ') : 'Add to List'}
+                </button>
+                {/* Dropdown Menu */}
+                {showListDropdown && (
+                  <div className="absolute top-14 left-0 bg-gray-800 border border-gray-700 rounded-lg shadow-2xl z-50 min-w-48">
+                    {['watching', 'plan_to_watch', 'completed', 'on_hold', 'dropped'].map((s) => (
+                      <button
+                        key={s}
+                        onClick={() => handleAddToList(s)}
+                        className={`w-full text-left px-4 py-3 hover:bg-gray-700 transition-colors capitalize first:rounded-t-lg last:rounded-b-lg ${
+                          listStatus === s ? 'text-primary font-medium' : 'text-white'
+                        }`}
+                      >
+                        {s.replace(/_/g, ' ')}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Synopsis */}

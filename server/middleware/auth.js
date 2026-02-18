@@ -4,11 +4,11 @@ const requireAuth = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      return res.status(401).json({ error: "No authroization token provided" });
+      return res.status(401).json({ error: "No authorization token provided" });
     }
     const token = authHeader.substring(7); // Removing 'Bearer ' prefix
     // Verifying the token with Clerk
-    const reponse = await fetch("https://api.clerk.com/v1/sessions/verify", {
+    const response = await fetch("https://api.clerk.com/v1/sessions/verify", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
