@@ -1,3 +1,5 @@
+import { verifyToken } from "@clerk/backend";
+
 // Authentication middleware with Clerk
 const requireAuth = async (req, res, next) => {
   // Getting session token from the Auth header
@@ -7,28 +9,13 @@ const requireAuth = async (req, res, next) => {
       return res.status(401).json({ error: "No authorization token provided" });
     }
     const token = authHeader.substring(7); // Removing 'Bearer ' prefix
-    // Verifying the token with Clerk
-    const response = await fetch("https://api.clerk.com/v1/sessions/verify", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.CLERK_SECRET_KEY}`,
-      },
-      body: JSON.stringify({ token }),
-    });
-    if (!response.ok) {
-      return res.status(401).json({ error: "Invalid or expired token" });
-    }
-
-    const session = await response.json();
-
-    // Attaching user ID to request object
-    req.userId = session.user_id;
-
+    // Verifying JWTs from getToken()
+    const verifiedToken = await verifyToken(token, { secretKey: process.env.CLERK_SECRET_KEY, });
+    req.userId = verifiedToken.sub;
     next();
   } catch (error) {
     console.error("Auth error:", error);
-    return res.status(401).json({ error: "Authentication failed" });
+    return res.status(401).json({ error: "Invalid or expired token" });
   }
 };
 

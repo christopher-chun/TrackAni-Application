@@ -55,7 +55,6 @@ const listSchema = new mongoose.Schema({
 // Updating the updatedAt timestamp before saving
 listSchema.pre("save", function (next) {
   this.updatedAt = Date.now();
-  next();
 });
 
 listSchema.index({ userId: 1, itemId: 1, itemType: 1 }, { unique: true });
