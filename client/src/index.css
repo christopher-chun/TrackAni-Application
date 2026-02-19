@@ -1,9 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
-@import "tailwindcss";
-@theme {
-    --color-primary: #59e7ab; /* teal color */
-    --color-primary-dull: #6db4f2; /* light blue color */
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 *{
     font-family: "Outfit", sans-serif;
