@@ -10,7 +10,7 @@ const requireAuth = async (req, res, next) => {
     }
     const token = authHeader.substring(7); // Removing 'Bearer ' prefix
     // Verifying JWTs from getToken()
-    const verifiedToken = await verifyToken(token, { secretKey: process.env.CLERK_SECRET_KEY, });
+    const verifiedToken = await verifyToken(token, { secretKey: process.env.CLERK_SECRET_KEY });
     req.userId = verifiedToken.sub;
     next();
   } catch (error) {

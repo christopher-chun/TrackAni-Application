@@ -59,7 +59,7 @@ const FavoriteCard = ({ favorite, onRemove }) => {
           <div className="flex items-center justify-between">
             {rating && (
               <span className="text-yellow-400 text-sm">
-                ⭐ {parseFloat(rating).toFixed(1)}
+                ⭐ {parseFloat(rating / 10).toFixed(1)}
               </span>
             )}
             <span className="text-gray-400 text-xs capitalize">{favorite.itemType}</span>
@@ -126,12 +126,12 @@ const Favorite = () => {
   }
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 text-white pt-24 px-6 md:px-16 lg:px-36 pb-12">
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center justify-between mb-8 mt-10">
         <div className="flex items-center gap-3">
           <h1 className="text-4xl md:text-5xl mt-10 font-bold">My Favorites</h1>
         </div>
         {/* Filter Buttons */}
-        <div className="flex gap-2">
+        <div className="flex gap-2 mt-10">
           <button
             onClick={() => setFilter('all')}
             className={`px-4 py-2 rounded-full transition-colors ${
@@ -172,13 +172,13 @@ const Favorite = () => {
           <div className="flex gap-4 justify-center">
             <Link
               to="/anime"
-              className="px-6 py-3 bg-primary hover:bg-primary-dull rounded-full font-medium transition"
+              className="px-6 py-3 bg-primary-dull hover:bg-primary rounded-full font-medium transition"
             >
               Browse Anime
             </Link>
             <Link
               to="/manga"
-              className="px-6 py-3 bg-primary hover:bg-primary-dull rounded-full font-medium transition"
+              className="px-6 py-3 bg-primary-dull hover:bg-primary rounded-full font-medium transition"
             >
               Browse Manga
             </Link>

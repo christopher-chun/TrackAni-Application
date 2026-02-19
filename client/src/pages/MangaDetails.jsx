@@ -223,7 +223,7 @@ const MangaDetails = () => {
                 disabled={actionLoading}
                 className={`flex items-center gap-2 px-6 py-3 transition-colors rounded-full font-medium cursor-pointer disabled:opacity-50 ${
                   isFavorited
-                    ? 'bg-red-600 hover:bg-red-700'
+                    ? 'bg-primary hover:bg-teal-400'
                     : 'bg-gray-800 hover:bg-gray-700 border border-gray-700'
                 }`}
               >
@@ -237,12 +237,12 @@ const MangaDetails = () => {
                   disabled={actionLoading}
                   className={`flex items-center gap-2 px-6 py-3 transition-colors rounded-full font-medium cursor-pointer disabled:opacity-50 ${
                     listStatus
-                      ? 'bg-primary hover:bg-primary-dull'
+                      ? 'bg-primary-dull hover:bg-primary'
                       : 'bg-gray-800 hover:bg-gray-700 border border-gray-700'
                   }`}
                 >
                   <BookmarkPlus className="w-5 h-5" />
-                  {listStatus ? listStatus.replace('_', ' ') : 'Add to List'}
+                  {listStatus ? listStatus.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase()) : 'Add to List'}
                 </button>
                 {/* Dropdown Menu */}
                 {showListDropdown && (
