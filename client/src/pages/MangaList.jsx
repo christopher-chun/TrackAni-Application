@@ -102,14 +102,14 @@ const MangaListCard = ({ listItem, onUpdate, onRemove }) => {
               <div className="flex gap-2 mt-4">
                 <button
                   onClick={() => setEditing(true)}
-                  className="flex items-center gap-1 px-3 py-1 bg-blue-600 hover:bg-blue-700 rounded text-sm transition"
+                  className="flex items-center gap-1 px-3 py-1 bg-primary-dull hover:bg-primary rounded-full text-sm transition"
                 >
                   <Edit2 className="w-3 h-3" />
                   Edit
                 </button>
                 <button
                   onClick={() => onRemove(listItem)}
-                  className="flex items-center gap-1 px-3 py-1 bg-red-600 hover:bg-red-700 rounded text-sm transition"
+                  className="flex items-center gap-1 px-3 py-1 bg-red-600 hover:bg-red-700 rounded-full text-sm transition"
                 >
                   <Trash2 className="w-3 h-3" />
                   Remove
@@ -123,7 +123,7 @@ const MangaListCard = ({ listItem, onUpdate, onRemove }) => {
                 <select
                   value={status}
                   onChange={(e) => setStatus(e.target.value)}
-                  className="w-full bg-gray-900 text-white px-2 py-1 rounded text-sm"
+                  className="w-full bg-gray-900 text-white px-2 py-1 rounded-full text-sm"
                 >
                   <option value="reading">Reading</option>
                   <option value="completed">Completed</option>
@@ -140,7 +140,7 @@ const MangaListCard = ({ listItem, onUpdate, onRemove }) => {
                   onChange={(e) => setProgress(e.target.value)}
                   min="0"
                   max={totalChapters !== '?' ? totalChapters : 9999}
-                  className="w-full bg-gray-900 text-white px-2 py-1 rounded text-sm"
+                  className="w-full bg-gray-900 text-white px-2 py-1 rounded-full text-sm"
                 />
               </div>
               <div>
@@ -152,13 +152,13 @@ const MangaListCard = ({ listItem, onUpdate, onRemove }) => {
                   min="1"
                   max="10"
                   placeholder="Optional"
-                  className="w-full bg-gray-900 text-white px-2 py-1 rounded text-sm"
+                  className="w-full bg-gray-900 text-white px-2 py-1 rounded-full text-sm"
                 />
               </div>
               <div className="flex gap-2 mt-4">
                 <button
                   onClick={handleSave}
-                  className="flex items-center gap-1 px-3 py-1 bg-green-600 hover:bg-green-700 rounded text-sm transition"
+                  className="flex items-center gap-1 px-3 py-1 bg-primary hover:bg-teal-400 rounded-full text-sm transition"
                 >
                   <Save className="w-3 h-3" />
                   Save
@@ -170,7 +170,7 @@ const MangaListCard = ({ listItem, onUpdate, onRemove }) => {
                     setRating(listItem.rating || '');
                     setStatus(listItem.status);
                   }}
-                  className="flex items-center gap-1 px-3 py-1 bg-gray-600 hover:bg-gray-500 rounded text-sm transition"
+                  className="flex items-center gap-1 px-3 py-1 bg-gray-600 hover:bg-gray-500 rounded-full text-sm transition"
                 >
                   <X className="w-3 h-3" />
                   Cancel
