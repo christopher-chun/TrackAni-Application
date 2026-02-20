@@ -207,7 +207,3 @@ PORT=5000
 *Coming soon*
 
 ---
-
-## License
-
-MIT
